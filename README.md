@@ -1,18 +1,19 @@
 # LinguistAligner 🌍🔍
-**A Professional NLP Tool for English-Persian Sentence Alignment**
+**A Java-based NLP Tool for English-Persian Sentence Alignment and Text Analysis**
 
-این پروژه یک ابزار هوشمند برای پردازش زبان طبیعی (NLP) است که با هدف تسهیل ترازسازی متن‌های موازی انگلیسی و فارسی طراحی شده است.
+## Overview
+LinguistAligner is a specialized Natural Language Processing tool designed to bridge the gap between English and Persian text structures. It provides automated solutions for researchers and linguists working with parallel corpora.
 
-## قابلیت‌ها (Features)
-- **Sentence Segmentation:** جداکردن هوشمند جملات بر اساس علائم نگارشی.
-- **Persian Tokenization:** تکه‌تکه کردن کلمات با پشتیبانی از ویژگی‌های زبان فارسی.
-- **Stop-words Removal:** حذف خودکار کلمات بی‌اثر برای تحلیل دقیق‌تر.
-- **Frequency Analysis:** استخراج کلمات کلیدی و شمارش تکرار آن‌ها (Word Count).
-- **Excel Export:** خروجی مستقیم به فایل CSV برای تحلیل در اکسل.
+## Key Features
+- **Sentence Segmentation:** Intelligent splitting based on punctuation rules for both languages.
+- **Advanced Tokenization:** Optimized for Persian script, handling unique spacing and word boundaries.
+- **Stop-words Filtering:** Pre-built dictionaries to remove non-content words (e.g., "is", "and", "در", "و").
+- **Frequency Analysis:** Real-time word count and keyword extraction to identify core topics.
+- **Data Export:** Seamless export to CSV/Excel for academic reporting.
 
-## تکنولوژی‌های استفاده شده
-- Java (Standard Edition)
-- Regular Expressions (Regex) for Linguistic Rules
+---
+## توضیحات پروژه (Persian)
+این ابزار هوشمند برای پردازش زبان طبیعی (NLP) با تمرکز بر چالش‌های خاص زبان فارسی طراحی شده است. از جمله قابلیت‌های آن می‌توان به استخراج کلمات کلیدی، حذف کلمات بی‌اثر و آماده‌سازی داده‌ها برای مدل‌های آماری اشاره کرد.
 
-## هدف (Goal)
-این پروژه به عنوان بخشی از مسیر مطالعاتی من در حوزه **Computational Linguistics** و آمادگی برای مقطع دکترا در حال توسعه است.
+## Academic Background
+This project is part of my preparation for **PhD research in Computational Linguistics**. It demonstrates my proficiency in Java development and my ability to handle complex linguistic data.
