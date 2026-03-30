@@ -1,41 +1,56 @@
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class MainApp {
+
     public static void main(String[] args) {
+
         TextProcessor processor = new TextProcessor();
 
-        // متن نمونه برای تحلیل (می‌توانی جملات بیشتری اضافه کنی)
-        String englishText = "I study NLP. It is fun. Learning NLP is great.";
-        String persianText = "من پردازش زبان طبیعی مطالعه می‌کنم. این لذت‌بخش است. یادگیری پردازش زبان طبیعی عالی است.";
+        String englishText = "I study natural language processing. It is fun. Learning NLP is great.";
+        String persianText = "این لذت‌بخش است. یادگیری پردازش زبان طبیعی عالی است. من مطالعه می‌کنم.";
 
-        // ۱. جدا کردن جملات
+        // LEVEL 3: phrase normalization
+        englishText = englishText.replace("natural language processing", "nlp");
+
         List<String> enSentences = processor.splitIntoSentences(englishText);
         List<String> faSentences = processor.splitIntoSentences(persianText);
 
-        System.out.println("=== گزارش تحلیل هوشمند زبانی ===");
+        Map<String, Double> faIDF = processor.computeIDF(faSentences);
 
-        for (int i = 0; i < enSentences.size(); i++) {
-            // ۲. تکه‌تکه کردن و پاکسازی
-            String[] enWords = processor.tokenize(enSentences.get(i));
-            String[] faWords = processor.tokenize(faSentences.get(i));
+        System.out.println("=== Alignment Results ===");
 
-            List<String> enClean = processor.removeStopWords(enWords);
-            List<String> faClean = processor.removeStopWords(faWords);
+        for (String en : enSentences) {
 
-            // ۳. نمایش جفت‌ها و کلمات کلیدی
-            System.out.println("\n[جمله " + (i + 1) + "]");
-            System.out.println("EN Keywords: " + enClean);
-            System.out.println("FA Keywords: " + faClean);
+            String[] enWords = processor.tokenize(en);
+
+            List<String> translated = new ArrayList<>();
+
+            for (String w : enWords) {
+                translated.add(processor.translateWord(w));
+            }
+
+            String newEn = String.join(" ", translated);
+
+            Map<String, Double> enVec = processor.computeTFIDF(newEn, faIDF);
+
+            String bestMatch = "";
+            double bestScore = -1;
+
+            for (String fa : faSentences) {
+
+                Map<String, Double> faVec = processor.computeTFIDF(fa, faIDF);
+
+                double score = processor.cosineSimilarity(enVec, faVec);
+
+                if (score > bestScore) {
+                    bestScore = score;
+                    bestMatch = fa;
+                }
+            }
+
+            System.out.println("\nEN: " + en);
+            System.out.println("FA: " + bestMatch);
+            System.out.println("Score: " + bestScore);
         }
-
-        // ۴. تحلیل فراوانی کل متن فارسی (برای کشف موضوع اصلی)
-        // تمام کلمات جملات فارسی را در یک لیست می‌ریزیم
-        String fullPersian = String.join(" ", faSentences);
-        List<String> allFaClean = processor.removeStopWords(processor.tokenize(fullPersian));
-        Map<String, Integer> freq = processor.countWordFrequency(allFaClean);
-
-        System.out.println("\n=== پرتکرارترین کلمات (موضوع متن) ===");
-        System.out.println(freq);
     }
 }
